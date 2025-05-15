@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: white;
+  color: black;
+}
+
+.dark.container {
+  background-color: #111;
+  color: white;
+}
+
+header {
+  background-color: black;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle {
+  background: white;
+  color: black;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  background-color: #f0f0f0;
+  padding: 20px;
+  width: 250px;
+}
+
+.dark .sidebar {
+  background-color: #222;
+}
+
+.sidebar button {
+  display: block;
+  margin-bottom: 10px;
+  background: none;
+  color: inherit;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sub-items {
+  margin-left: 10px;
+}
+
+.sub-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.sub-item span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.sub-item button {
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.report {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+th, td {
+  border: 1px solid #aaa;
+  padding: 8px;
+  text-align: left;
+}
+
+.download {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.download:hover {
+  background-color: gray;
+}

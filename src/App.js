@@ -1,94 +1,155 @@
 import React, { useState } from 'react';
-import './styles.css';
+import { jsPDF } from "jspdf";
 
-const items = [
-  { id: 1, name: 'Laptop', category: 'Electronics' },
-  { id: 2, name: 'Mouse', category: 'Electronics' },
-  { id: 3, name: 'Keyboard', category: 'Electronics' },
-  { id: 4, name: 'Monitor', category: 'Electronics' },
-  { id: 5, name: 'Printer', category: 'Electronics' },
-  { id: 6, name: 'Desk', category: 'Furniture' },
-  { id: 7, name: 'Office Chair', category: 'Furniture' },
-  { id: 8, name: 'Bookshelf', category: 'Furniture' },
-  { id: 9, name: 'Filing Cabinet', category: 'Furniture' },
-  { id: 10, name: 'Pen Pack', category: 'Stationery' },
-  { id: 11, name: 'Notebook', category: 'Stationery' },
-  { id: 12, name: 'Sticky Notes', category: 'Stationery' },
-  { id: 13, name: 'Whiteboard', category: 'Office Supplies' },
-  { id: 14, name: 'Projector', category: 'Electronics' },
-  { id: 15, name: 'Extension Cord', category: 'Electronics' },
-  { id: 16, name: 'Router', category: 'Electronics' },
-  { id: 17, name: 'Scissors', category: 'Stationery' },
-  { id: 18, name: 'Paper Ream', category: 'Stationery' },
-  { id: 19, name: 'Stapler', category: 'Stationery' },
-  { id: 20, name: 'USB Drive', category: 'Electronics' },
-];
+const itemsData = {
+  Pen: [
+    { name: 'Gel Pen', price: 10, review: 'Smooth writing experience', discount: 5 },
+    { name: 'Ball Pen', price: 5, review: 'Affordable, good for everyday use', discount: 2 },
+    { name: 'Ink Pen', price: 15, review: 'Classic ink pen', discount: 10 },
+    { name: 'Fountain Pen', price: 25, review: 'Elegant design, premium quality', discount: 15 },
+  ],
+  Pencil: [
+    { name: 'HB Pencil', price: 3, review: 'Standard pencil, perfect for writing', discount: 1 },
+    { name: '2B Pencil', price: 4, review: 'Good for drawing', discount: 2 },
+    { name: 'Mechanical Pencil', price: 20, review: 'Precise and reliable', discount: 5 },
+  ],
+  Notebook: [
+    { name: 'A4 Notebook', price: 25, review: 'Large size for writing', discount: 3 },
+    { name: 'A5 Notebook', price: 20, review: 'Compact size for easy carrying', discount: 2 },
+    { name: 'Pocket Notebook', price: 15, review: 'Convenient for quick notes', discount: 1 },
+    { name: 'Spiral Notebook', price: 30, review: 'Durable and stylish', discount: 5 },
+  ],
+  Marker: [
+    { name: 'Whiteboard Marker', price: 12, review: 'Perfect for whiteboard use', discount: 2 },
+    { name: 'Permanent Marker', price: 15, review: 'Bold and permanent', discount: 3 },
+    { name: 'Highlighter', price: 18, review: 'Bright and clear highlights', discount: 4 },
+  ],
+};
 
 function App() {
-  const [inventory, setInventory] = useState([]);
-  const [showItemPanel, setShowItemPanel] = useState(false);
+  const [report, setReport] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
+  const [expanded, setExpanded] = useState({});
 
   const handleAddItem = (item) => {
-    setInventory([...inventory, { ...item, addedAt: new Date().toLocaleString() }]);
-    setShowItemPanel(false);
+    const exists = report.find((r) => r.name === item.name);
+    if (exists) {
+      setReport(report.map((r) =>
+        r.name === item.name ? { ...r, quantity: r.quantity + 1 } : r
+      ));
+    } else {
+      setReport([...report, { ...item, quantity: 1 }]);
+    }
   };
 
+  const handleRemoveItem = (name) => {
+    setReport(report.filter((r) => r.name !== name));
+  };
+
+  const handleDownloadCSV = () => {
+    const csvContent = "data:text/csv;charset=utf-8,"
+      + ['Item,Price,Quantity']
+        .concat(report.map(r => `${r.name},${r.price},${r.quantity}`))
+        .join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "inventory_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleDownloadSingleItem = (item) => {
+    const doc = new jsPDF();
+    const date = new Date();
+    const dateString = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    const dayString = date.toLocaleDateString('en-US', { weekday: 'long' });
+
+    // Adding content to the PDF with structured text
+    doc.setFontSize(16);
+    doc.text(`Item Report for: ${item.name}`, 10, 20);
+
+    doc.setFontSize(12);
+    doc.text(`Date: ${dateString}`, 10, 30);
+    doc.text(`Day: ${dayString}`, 10, 40);
+    doc.text(`Price: ₹${item.price}`, 10, 50);
+    doc.text(`Review: ${item.review}`, 10, 60);
+    doc.text(`Discount: ${item.discount}%`, 10, 70);
+
+    // Saving the PDF with a clean format
+    doc.save(`${item.name.replace(" ", "_")}_report.pdf`);
+  };
+
+  const toggleCategory = (cat) => {
+    setExpanded({ ...expanded, [cat]: !expanded[cat] });
+  };
+
+  const totalCost = report.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   return (
-    <div className="app">
-      <header className="header">
-        <div className="header-content">
-          <div className="logo">📦</div>
-          <div>
-            <h1 className="title">Inventory Management System</h1>
-            <p className="subtitle">Efficient. Reliable. Organized.</p>
-          </div>
-        </div>
+    <div className={darkMode ? "dark container" : "container"}>
+      <header>
+        <h1>Inventory Management System</h1>
+        <button className="toggle" onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
       </header>
 
-      <main className="main">
-        <button className="add-button" onClick={() => setShowItemPanel(!showItemPanel)}>
-          {showItemPanel ? 'Close Item List' : 'Add Item'}
-        </button>
-
-        {/* Corrected the className syntax */}
-        <div className={`side-panel ${showItemPanel ? 'open' : ''}`}>
-          <h3>Select Item to Add</h3>
-          {items.map((item) => (
-            <div key={item.id} className="item-card" onClick={() => handleAddItem(item)}>
-              <strong>{item.name}</strong>
-              <span>{item.category}</span>
+      <div className="main">
+        <div className="sidebar">
+          <h2>Categories</h2>
+          {Object.keys(itemsData).map((category) => (
+            <div key={category}>
+              <button onClick={() => toggleCategory(category)}>
+                {expanded[category] ? '▼' : '►'} {category}
+              </button>
+              {expanded[category] && (
+                <div className="sub-items">
+                  {itemsData[category].map((item) => (
+                    <div key={item.name} className="sub-item">
+                      <span onClick={() => handleDownloadSingleItem(item)}>{item.name}</span>
+                      <button onClick={() => handleAddItem(item)}>Add</button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        <section className="inventory-section">
-          <h2>Current Inventory</h2>
-          {inventory.length === 0 ? (
-            <p className="empty">No items added yet. Click "Add Item" to begin.</p>
+        <div className="report">
+          <h2>Inventory Report</h2>
+          {report.length === 0 ? (
+            <p>No items added.</p>
           ) : (
-            <table className="inventory-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Category</th>
-                  <th>Added At</th>
-                </tr>
-              </thead>
-              <tbody>
-                {inventory.map((item, idx) => (
-                  <tr key={idx}>
-                    <td>{idx + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.category}</td>
-                    <td>{item.addedAt}</td>
+            <>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Remove</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {report.map((r) => (
+                    <tr key={r.name}>
+                      <td>{r.name}</td>
+                      <td>₹{r.price}</td>
+                      <td>{r.quantity}</td>
+                      <td><button onClick={() => handleRemoveItem(r.name)}>X</button></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <h3>Total Cost: ₹{totalCost}</h3>
+              <button className="download" onClick={handleDownloadCSV}>Download Report</button>
+            </>
           )}
-        </section>
-      </main>
+        </div>
+      </div>
     </div>
   );
 }
