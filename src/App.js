@@ -1,4 +1,15 @@
 <<<<<<< HEAD
+import React from 'react';
+import SettingsPage from './pages/SettingsPage';
+import './style.css';
+
+function App() {
+  return (
+    <div className="app-container">
+      <SettingsPage />
+    </div>
+=======
+<<<<<<< HEAD
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
@@ -31,6 +42,7 @@ function App() {
       </Routes>
     </Router>
 >>>>>>> a5d075e4922a9c2d14ac650e038d1e8a7449d3be
+>>>>>>> 9bf5ca4c5cc3478fc8505fc60de50ba990a55447
   );
 }
 
