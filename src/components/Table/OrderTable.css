@@ -1,0 +1,146 @@
+/* Status Badge */
+.status {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* <- transition added */
+}
+
+.status:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Payment Badge */
+.payment {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-flex; /* inline-flex so icon + text align */
+  align-items: center;
+  gap: 0.3rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* <- transition added */
+}
+
+.payment:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Specific Status Colors */
+.status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status.shipped {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status.delivered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Specific Payment Colors */
+.payment.credit-card {
+  background-color: #e0e7ff;
+  color: #1d4ed8;
+}
+
+.payment.paypal {
+  background-color: #ccfbf1;
+  color: #0f766e;
+}
+
+.payment.bank-transfer {
+  background-color: #fde68a;
+  color: #92400e;
+}
+
+.payment.cash-on-delivery {
+  background-color: #fca5a5;
+  color: #991b1b;
+}
+
+/* Table Row Hover */
+.order-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.order-table tbody tr:hover {
+  background-color: #f9fafb; /* very light grey background */
+}
+
+
+.filter-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: white;
+  color: #374151;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.filter-btn.active {
+  background-color: #3b82f6; /* Blue */
+  color: white;
+  border-color: #3b82f6;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  width: 250px;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.clear-btn {
+  background-color: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clear-btn:hover {
+  color: #f87171;
+}
+
