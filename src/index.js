@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import App from './App';
 import './style.css';  // Make sure this file exists in src/
 =======
@@ -37,3 +38,15 @@ root.render(
 reportWebVitals();
 >>>>>>> a5d075e4922a9c2d14ac650e038d1e8a7449d3be
 >>>>>>> 9bf5ca4c5cc3478fc8505fc60de50ba990a55447
+=======
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import './index.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+>>>>>>> feature/login
