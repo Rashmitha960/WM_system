@@ -1,16 +1,68 @@
 {
+<<<<<<< HEAD
   "name": "inventorymanagement",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "name": "setting",
+=======
+<<<<<<< HEAD
+  "name": "admindashboard",
+=======
+  "name": "orders",
+>>>>>>> a5d075e4922a9c2d14ac650e038d1e8a7449d3be
+>>>>>>> 9bf5ca4c5cc3478fc8505fc60de50ba990a55447
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+=======
+  "name": "myproject",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@react-oauth/google": "^0.12.1",
+>>>>>>> feature/login
+>>>>>>> f6b055f281d66b999738553a6a4501a8c81b1dfd
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+<<<<<<< HEAD
     "jspdf": "^3.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-scripts": "5.0.1",
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-scripts": "5.0.1",
+=======
+<<<<<<< HEAD
+    "react": "^19.1.0",
+    "react-calendar": "^5.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
+    "react-scripts": "5.0.1",
+    "recharts": "^2.15.3",
+=======
+    "date-fns": "^4.1.0",
+=======
+>>>>>>> feature/login
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.5.0",
+    "react-scripts": "5.0.1",
+<<<<<<< HEAD
+>>>>>>> a5d075e4922a9c2d14ac650e038d1e8a7449d3be
+>>>>>>> 9bf5ca4c5cc3478fc8505fc60de50ba990a55447
+=======
+>>>>>>> feature/login
+>>>>>>> f6b055f281d66b999738553a6a4501a8c81b1dfd
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -19,6 +71,19 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+  "homepage": "http://localhost:3000",
+>>>>>>> a5d075e4922a9c2d14ac650e038d1e8a7449d3be
+>>>>>>> 9bf5ca4c5cc3478fc8505fc60de50ba990a55447
+=======
+>>>>>>> feature/login
+>>>>>>> f6b055f281d66b999738553a6a4501a8c81b1dfd
   "eslintConfig": {
     "extends": [
       "react-app",
